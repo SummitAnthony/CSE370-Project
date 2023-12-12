@@ -2,11 +2,11 @@
 
 # CSE370 Course Management System
 
-**Welcome to the CSE370 Course Management System project repository!** This project was developed as part of the CSE370 course, focusing on databases, using PHP and MySQL.
+**Welcome to the  Course Management System project repository!** This project was developed as part of the CSE370 course, focusing on databases, using PHP and MySQL.
 
 ## Overview
 
-The **CSE370 Course Management System** is a web-based application designed to streamline course-related activities for both teachers and students. The system includes a variety of features aimed at enhancing the learning experience and administrative processes.
+The **Course Management System** is a web-based application designed to streamline course-related activities for both teachers and students. The system includes a variety of features aimed at enhancing the learning experience and administrative processes.
 
 ## Features
 
