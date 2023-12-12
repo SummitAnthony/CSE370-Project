@@ -40,7 +40,7 @@ Clone the repository:
 
 bash
 Copy code
-git clone https://github.com/your-username/CSE370-Course-Management-System.git
+git clone https://github.com/summit-anthony/CSE370-Course-Management-System.git
 Set up your local server environment (e.g., XAMPP, WAMP).
 
 Import the provided SQL script to create the database structure.
