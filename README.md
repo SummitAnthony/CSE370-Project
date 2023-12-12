@@ -1,4 +1,4 @@
-Certainly! Below is an enhanced version of your GitHub README with improved styling and different font sizes:
+
 
 # CSE370 Course Management System
 
@@ -14,7 +14,7 @@ The **CSE370 Course Management System** is a web-based application designed to s
 
 - **Course Management:**
   - Create, Read, Update, and Delete courses.
-  - Assign teachers to courses.
+
 
 - **Grade Management:**
   - Grade students for their assignments, quizzes, and exams.
@@ -22,7 +22,7 @@ The **CSE370 Course Management System** is a web-based application designed to s
 
 - **Assignment and Quiz Creation:**
   - Assign and manage assignments and quizzes for students.
-  - Track student submissions and quiz results.
+
 
 ### Student Dashboard
 
@@ -36,8 +36,7 @@ The **CSE370 Course Management System** is a web-based application designed to s
 - **Assignment and Quiz Files:**
   - Download assignment and quiz files.
 
-- **Notification System:**
-  - Receive notifications for new grades and assignments.
+
 
 ## Project Goal
 
