@@ -1,0 +1,14 @@
+# Environment / secrets
+.env
+
+# Editor & OS cruft
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Dependencies (if Composer is ever added)
+vendor/
+
+# Uploaded files at runtime
+uploads/

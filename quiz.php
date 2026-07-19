@@ -71,7 +71,7 @@
         <select class="form-control" id="courseSelection" name="courseSelection" required>
             <?php
             // Include your database connection file
-            include('dbconnection.php');
+            include('connection.php');
 
             // Fetch courses from the database and populate the dropdown
             $query = "SELECT * FROM cms";

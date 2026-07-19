@@ -1,6 +1,6 @@
 <?php
 if (isset($_POST['submitquiz'])) {
-    include('dbconnection.php');
+    include('connection.php');
 
     // Validate course selection
     if (!isset($_POST['courseSelection']) || empty($_POST['courseSelection'])) {

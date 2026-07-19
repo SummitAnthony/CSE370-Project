@@ -1,6 +1,6 @@
 <?php
 if(isset($_POST['submitAssignment'])){
-    include('dbconnection.php');
+    include('connection.php');
 
     $selectedCourse = mysqli_real_escape_string($conn, $_POST['courseSelection']);
     

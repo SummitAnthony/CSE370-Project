@@ -2,7 +2,7 @@
 session_start();
 
 // Include the database connection file
-include('dbconnection.php');
+include('connection.php');
 
 // Check if the teacher is logged in
 if (!isset($_SESSION['teacher_id'])) {
