@@ -1,73 +1,82 @@
+# Course Management System
 
+[![CI](https://github.com/SummitAnthony/CSE370-Project/actions/workflows/ci.yml/badge.svg)](https://github.com/SummitAnthony/CSE370-Project/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)
 
-# CSE370 Course Management System
+A web-based course management system with separate **teacher** and **student** portals — course CRUD, assignment/quiz uploads, and grading — built on PHP and MySQL. Originally developed for BRAC University's CSE370 (Database Systems) course, then modernized: SQL-injection-free prepared statements everywhere, bcrypt password hashing, a one-command Docker setup, and CI that guards it all.
 
-**Welcome to the  Course Management System project repository!** This project was developed as part of the CSE370 course, focusing on databases, using PHP and MySQL.
+<p align="center">
+  <img src="docs/screenshots/welcome.png" alt="Welcome page" width="70%">
+</p>
 
-## Overview
+## Quick start
 
-The **Course Management System** is a web-based application designed to streamline course-related activities for both teachers and students. The system includes a variety of features aimed at enhancing the learning experience and administrative processes.
+```bash
+git clone https://github.com/SummitAnthony/CSE370-Project.git
+cd CSE370-Project
+docker compose up
+```
+
+Open **http://localhost:8080/welcome.php** — the database schema and demo data import automatically.
+
+| Demo account | Email | Password |
+| --- | --- | --- |
+| Teacher | `john@gmail.com` | `password123` |
+| Student | `latif@gmail.com` | `password123` |
+
+<details>
+<summary>Running without Docker (XAMPP/WAMP)</summary>
+
+1. Import `database/370project.sql` into MySQL.
+2. Serve the `public/` directory (e.g. point your Apache docroot at it).
+3. Configure the DB connection via environment variables (see `.env.example`) — defaults assume `root` with no password on `localhost`.
+
+</details>
 
 ## Features
 
-### Teacher Admin Panel
+| Teacher portal | Student portal |
+| --- | --- |
+| Create, view, update, and delete courses | Sign up and manage a profile |
+| Upload assignment and quiz PDFs per course | Select courses |
+| Grade each student's three courses | View the gradesheet for all selected courses |
+|  | Download assignment and quiz files |
 
-- **Course Management:**
-  - Create, Read, Update, and Delete courses.
+## Screenshots
 
+| Student login | Teacher dashboard |
+| --- | --- |
+| ![Student login](docs/screenshots/student-login.png) | ![Teacher dashboard](docs/screenshots/teacher-dashboard.png) |
 
-- **Grade Management:**
-  - Grade students for their assignments, quizzes, and exams.
-  - View and manage student grades efficiently.
+| Student home | Gradesheet |
+| --- | --- |
+| ![Student home](docs/screenshots/student-home.png) | ![Gradesheet](docs/screenshots/gradesheet.png) |
 
-- **Assignment and Quiz Creation:**
-  - Assign and manage assignments and quizzes for students.
+## Database design
 
+The schema (six tables — course catalog, two account tables, course selections/grades, and per-course assignment and quiz uploads) is documented with a full entity-relationship diagram in **[docs/er-diagram.md](docs/er-diagram.md)**.
 
-### Student Dashboard
+## Architecture
 
-- **Profile Management:**
-  - Sign up and create a student profile.
-  - View personal information and update as needed.
+```
+public/            # web docroot — one PHP page per screen/action
+  css/             # stylesheets
+  assignments/     # uploaded assignment PDFs (runtime)
+  uploads/         # uploaded quiz PDFs (runtime)
+includes/db.php    # single DB bootstrap, configured via environment variables
+database/          # MySQL schema + seed data (auto-imported by Docker)
+.github/workflows/ # CI: PHP lint + SQL-injection gate
+```
 
-- **Grade Access:**
-  - Access and view grades for assignments, quizzes, and exams.
+## Security highlights
 
-- **Assignment and Quiz Files:**
-  - Download assignment and quiz files.
+- **Prepared statements everywhere** — every query touching user input uses bound parameters; CI fails any commit that interpolates request input into a SQL string.
+- **bcrypt password hashing** — `password_hash()` / `password_verify()`, with `session_regenerate_id()` on login.
+- **Environment-based configuration** — no credentials hardcoded in the codebase.
 
+## Credits
 
-
-## Project Goal
-
-The primary objective of this project was to showcase our MySQL skills and database knowledge acquired during the CSE370 course. By implementing a comprehensive Course Management System, we aimed to demonstrate proficiency in designing and managing complex database structures.
-
-## Technologies Used
-
-- **PHP:** Backend scripting language.
-- **MySQL:** Database management system.
-- **HTML, CSS, JavaScript:** Frontend development.
-- **GitHub:** Version control and collaborative development.
-
-## Getting Started
-
-To run the project locally, follow these steps:
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/SummitAnthony/CSE370-Course-Management-System.git
-   ```
-
-2. **Set up your local server environment (e.g., XAMPP, WAMP).**
-
-3. **Import the provided SQL script to create the database structure.**
-
-4. **Configure the database connection in the PHP files.**
-
-5. **Open the project in your web browser.**
-
-This Project was mainly done by me and my group mate **Ahanaf Tanvir - [GitHub Profile](https://github.com/ahanaftanvir40)**
-
-Feel free to contribute to the project by creating issues, suggesting improvements, or submitting pull requests.
-
-Thank you for exploring our CSE370 Project - Course Management System! If you have any questions or feedback, please don't hesitate to contact us.
+Built by [Summit Anthony](https://github.com/SummitAnthony) and [Ahanaf Tanvir](https://github.com/ahanaftanvir40). MIT licensed.
