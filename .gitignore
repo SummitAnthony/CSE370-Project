@@ -11,4 +11,7 @@ Thumbs.db
 vendor/
 
 # Uploaded files at runtime
-uploads/
+public/uploads/*
+public/assignments/*
+!public/uploads/.gitkeep
+!public/assignments/.gitkeep
