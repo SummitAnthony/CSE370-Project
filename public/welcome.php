@@ -6,11 +6,7 @@
     <title>Welcome Page</title>
     <style>
         body {
-			background-image: url(background.jpg);
-            background-repeat: no-repeat;
-            background-position: center;
-            background-attachment: fixed;
-            background-size: cover;
+            background: linear-gradient(135deg, #1a2a6c 0%, #2a4d8f 50%, #1f6feb 100%);
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;

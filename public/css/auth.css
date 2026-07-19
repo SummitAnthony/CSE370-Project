@@ -1,0 +1,112 @@
+/* Shared stylesheet for the login and signup pages */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 24px;
+    background: linear-gradient(135deg, #1a2a6c 0%, #2a4d8f 50%, #1f6feb 100%);
+}
+
+.form-box {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    padding: 40px 36px;
+    color: #fff;
+}
+
+.form-box h2 {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 24px;
+}
+
+.inputbox {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 22px 0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+    padding: 4px 2px;
+}
+
+.inputbox ion-icon {
+    font-size: 1.2em;
+    flex-shrink: 0;
+}
+
+.inputbox input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 1em;
+    padding: 8px 0;
+}
+
+.inputbox label {
+    order: -1;
+    position: absolute;
+    top: -14px;
+    left: 2px;
+    font-size: 0.75em;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.forget {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85em;
+    margin: 16px 0;
+}
+
+.forget a,
+.register a {
+    color: #9ecbff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 8px;
+    background: #1f6feb;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #388bfd;
+}
+
+.register {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 0.9em;
+}

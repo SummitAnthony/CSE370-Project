@@ -15,3 +15,4 @@ public/uploads/*
 public/assignments/*
 !public/uploads/.gitkeep
 !public/assignments/.gitkeep
+.gstack/
