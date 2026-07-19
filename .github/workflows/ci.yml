@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    name: PHP lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mysqli
+
+      - name: Syntax check all PHP files
+        run: find . -name '*.php' -print0 | xargs -0 -n1 php -l
+
+  security-gate:
+    name: SQL injection gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: No raw request input inside SQL strings
+        run: |
+          if grep -rnE '"(SELECT|INSERT|UPDATE|DELETE|select)[^"]*\$_(POST|GET|REQUEST|SESSION)' --include='*.php' .; then
+            echo '::error::Raw request input interpolated into a SQL string — use a prepared statement.'
+            exit 1
+          fi
+          echo "Clean: no interpolated request input in SQL."
