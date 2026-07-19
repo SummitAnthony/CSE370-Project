@@ -22,8 +22,9 @@ if ($pass1 === $pass2) {
         exit();
     } else {
 
+        $hashedPassword = password_hash($pass1, PASSWORD_DEFAULT);
         $insertStmt = mysqli_prepare($conn, "INSERT INTO `student` (`name`, `email`, `password`, `st_id`, `dept`, `phone`) VALUES (?, ?, ?, ?, ?, ?)");
-        mysqli_stmt_bind_param($insertStmt, 'ssssss', $name, $email, $pass1, $id, $dept, $phn);
+        mysqli_stmt_bind_param($insertStmt, 'ssssss', $name, $email, $hashedPassword, $id, $dept, $phn);
         $resultInsert = mysqli_stmt_execute($insertStmt);
 
 		$emailStmt = mysqli_prepare($conn, "INSERT INTO `students_courses` (`email`) VALUES (?)");

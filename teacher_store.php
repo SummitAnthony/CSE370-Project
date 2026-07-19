@@ -20,8 +20,9 @@ if ($pass1 === $pass2) {
         header("Location: teacher_signin.php?error=email_exists");
         exit();
     } else {
+        $hashedPassword = password_hash($pass1, PASSWORD_DEFAULT);
         $insertStmt = mysqli_prepare($conn, "INSERT INTO `teacher` (`name`, `email`, `password`, `teacher_id`, `dept`, `phone`) VALUES (?, ?, ?, ?, ?, ?)");
-        mysqli_stmt_bind_param($insertStmt, 'ssssss', $name, $email, $pass1, $id, $dept, $phn);
+        mysqli_stmt_bind_param($insertStmt, 'ssssss', $name, $email, $hashedPassword, $id, $dept, $phn);
         $resultInsert = mysqli_stmt_execute($insertStmt);
 
         if ($resultInsert) {

@@ -94,7 +94,7 @@ CREATE TABLE `student` (
   `id` int(11) NOT NULL,
   `name` char(20) NOT NULL,
   `email` varchar(200) NOT NULL,
-  `password` int(8) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `st_id` int(8) NOT NULL,
   `dept` char(20) NOT NULL,
   `phone` varchar(11) NOT NULL
@@ -104,9 +104,10 @@ CREATE TABLE `student` (
 -- Dumping data for table `student`
 --
 
+-- Demo password for all seed accounts: password123
 INSERT INTO `student` (`id`, `name`, `email`, `password`, `st_id`, `dept`, `phone`) VALUES
-(1, 'Ahanaf Tanvir', 'ahanaf.tanvir40@gmail.com', 12345, 12345, 'cse', '017'),
-(2, 'Latif', 'latif@gmail.com', 1234, 1337, 'CSE', '01710000');
+(1, 'Ahanaf Tanvir', 'ahanaf.tanvir40@gmail.com', '$2b$10$9cqsDj/6tfm2/X8V3r0P0e4rarpB.nDO68pFuKg9IeRwBn9CPpeYm', 12345, 'cse', '017'),
+(2, 'Latif', 'latif@gmail.com', '$2b$10$9cqsDj/6tfm2/X8V3r0P0e4rarpB.nDO68pFuKg9IeRwBn9CPpeYm', 1337, 'CSE', '01710000');
 
 -- --------------------------------------------------------
 
@@ -153,11 +154,10 @@ CREATE TABLE `teacher` (
 -- Dumping data for table `teacher`
 --
 
+-- Demo password for all seed accounts: password123
 INSERT INTO `teacher` (`id`, `name`, `email`, `password`, `teacher_id`, `dept`, `phone`) VALUES
-(0, 'Abdul', 'abdul@g.bracu', '', 123, 'CSE', 17),
-(0, 'rahim', 'rahim@gmail', '1234', 12345, 'CSE', 111),
-(0, 'john', 'john@gmail.com', '1234', 2022, 'CSE', 199123123),
-(0, 'johndoe', 'johndoe@gmail.com', '123', 2024, 'CSE', 12345);
+(0, 'john', 'john@gmail.com', '$2b$10$9cqsDj/6tfm2/X8V3r0P0e4rarpB.nDO68pFuKg9IeRwBn9CPpeYm', 2022, 'CSE', 199123123),
+(0, 'johndoe', 'johndoe@gmail.com', '$2b$10$9cqsDj/6tfm2/X8V3r0P0e4rarpB.nDO68pFuKg9IeRwBn9CPpeYm', 2024, 'CSE', 12345);
 
 --
 -- Indexes for dumped tables
