@@ -1,0 +1,36 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: db
+      DB_USER: cms
+      DB_PASSWORD: cms_secret
+      DB_NAME: 370project
+    volumes:
+      - ./public:/var/www/html
+      - ./includes:/var/www/includes
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: 370project
+      MYSQL_USER: cms
+      MYSQL_PASSWORD: cms_secret
+      MYSQL_ROOT_PASSWORD: root_secret
+    volumes:
+      - ./database/370project.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - dbdata:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 120s
+
+volumes:
+  dbdata:
