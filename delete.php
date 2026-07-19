@@ -1,8 +1,9 @@
 <?php
 include('connection.php');
 $sid = $_REQUEST['sid'];
-$qry = "DELETE FROM `cms` WHERE `id` = '$sid'";
-$run = mysqli_query($conn, $qry);
+$stmt = mysqli_prepare($conn, "DELETE FROM `cms` WHERE `id` = ?");
+mysqli_stmt_bind_param($stmt, 'i', $sid);
+$run = mysqli_stmt_execute($stmt);
 if ($run == true) {
     ?>
     <script>

@@ -24,8 +24,9 @@ if(isset($_POST['submitAssignment'])){
 
     if (move_uploaded_file($fileTempName, $targetFilePath)) {
         // Insert data into Assignment table
-        $sql = "INSERT INTO assignment (sc, pdf_file_path) VALUES ('$selectedCourse', '$targetFilePath')";
-        $run = mysqli_query($conn, $sql);
+        $stmt = mysqli_prepare($conn, "INSERT INTO assignment (sc, pdf_file_path) VALUES (?, ?)");
+        mysqli_stmt_bind_param($stmt, 'ss', $selectedCourse, $targetFilePath);
+        $run = mysqli_stmt_execute($stmt);
 
         if ($run == true){
             echo '<div class="alert alert-success" role="alert">Assignment Uploaded Successfully</div>';

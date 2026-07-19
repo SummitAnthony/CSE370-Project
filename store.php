@@ -11,20 +11,24 @@ $phn = $_POST['phn'];
 
 if ($pass1 === $pass2) {
     
-    $checkEmailQuery = "SELECT * FROM `student` WHERE `email` = '$email'";
-    $resultCheckEmail = mysqli_query($conn, $checkEmailQuery);
+    $checkStmt = mysqli_prepare($conn, "SELECT * FROM `student` WHERE `email` = ?");
+    mysqli_stmt_bind_param($checkStmt, 's', $email);
+    mysqli_stmt_execute($checkStmt);
+    $resultCheckEmail = mysqli_stmt_get_result($checkStmt);
 
     if (mysqli_num_rows($resultCheckEmail) > 0) {
-        
+
         header("Location: index.php?error=email_exists");
         exit();
     } else {
-        
-        $insertQuery = "INSERT INTO `student` (`name`, `email`, `password`, `st_id`, `dept`, `phone`) VALUES ('$name', '$email', '$pass1', '$id', '$dept', '$phn')";
-        $resultInsert = mysqli_query($conn, $insertQuery);
-		
-		$insertEmail ="INSERT INTO `students_courses` (`email`) VALUES ('$email')";
-        $resultEmail = mysqli_query($conn, $insertEmail);
+
+        $insertStmt = mysqli_prepare($conn, "INSERT INTO `student` (`name`, `email`, `password`, `st_id`, `dept`, `phone`) VALUES (?, ?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($insertStmt, 'ssssss', $name, $email, $pass1, $id, $dept, $phn);
+        $resultInsert = mysqli_stmt_execute($insertStmt);
+
+		$emailStmt = mysqli_prepare($conn, "INSERT INTO `students_courses` (`email`) VALUES (?)");
+        mysqli_stmt_bind_param($emailStmt, 's', $email);
+        $resultEmail = mysqli_stmt_execute($emailStmt);
 		
         header("Location: index.php?success=registration_successful");
         exit();

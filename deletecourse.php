@@ -119,8 +119,11 @@ if (isset($_POST['submit'])) {
     echo "Submit button clicked.<br>"; 
     $sc = $_POST['sc'];
     $name = $_POST['name'];
-    $sql = "SELECT * FROM `cms` WHERE `sc` = '$sc' OR `cname` LIKE '%$name%'";
-    $run = mysqli_query($conn, $sql);
+    $namePattern = '%' . $name . '%';
+    $stmt = mysqli_prepare($conn, "SELECT * FROM `cms` WHERE `sc` = ? OR `cname` LIKE ?");
+    mysqli_stmt_bind_param($stmt, 'ss', $sc, $namePattern);
+    mysqli_stmt_execute($stmt);
+    $run = mysqli_stmt_get_result($stmt);
     if (mysqli_num_rows($run) < 1) {
         echo "No Record Found<br>"; 
     } else { 

@@ -15,8 +15,10 @@ $userEmail = $_SESSION['user_email'];
 
 
 
-$sql = "SELECT * FROM student WHERE email = '$userEmail'";
-$result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+$stmt = mysqli_prepare($conn, "SELECT * FROM student WHERE email = ?");
+mysqli_stmt_bind_param($stmt, 's', $userEmail);
+mysqli_stmt_execute($stmt) or die(mysqli_error($conn));
+$result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
 
 if ($userEmail && $row) {

@@ -104,11 +104,12 @@ if(isset($_POST['submit'])){
 	
 	//MY SQL PART 
     
-    $sql = "INSERT INTO `cms` (`id`, `sc`, `cname`, `image`) VALUES ('', '$sc', '$name', '$imagename')";
-    
+    $stmt = mysqli_prepare($conn, "INSERT INTO `cms` (`sc`, `cname`, `image`) VALUES (?, ?, ?)");
+    mysqli_stmt_bind_param($stmt, 'sss', $sc, $name, $imagename);
+
 	//RUNNING MY SQL QUERY FOR INSERTING THE DATA INTO THE CMS TABLE IN OUR COURSE DATABASE
-	
-    $run = mysqli_query($conn, $sql);
+
+    $run = mysqli_stmt_execute($stmt);
     
 	
 	//

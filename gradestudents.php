@@ -19,14 +19,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $gradeCourseId3 = $grades['course3'];
 
         // Perform SQL update for each student
-        $updateQuery = "UPDATE students_courses 
-                        SET grade_course_id_1 = '$gradeCourseId1', 
-                            grade_course_id_2 = '$gradeCourseId2', 
-                            grade_course_id_3 = '$gradeCourseId3' 
-                        WHERE student_name = '$studentName'";
+        $updateStmt = mysqli_prepare($conn, "UPDATE students_courses
+                        SET grade_course_id_1 = ?,
+                            grade_course_id_2 = ?,
+                            grade_course_id_3 = ?
+                        WHERE student_name = ?");
+        mysqli_stmt_bind_param($updateStmt, 'ssss', $gradeCourseId1, $gradeCourseId2, $gradeCourseId3, $studentName);
 
         // Check if the query was successful
-        if (mysqli_query($conn, $updateQuery)) {
+        if (mysqli_stmt_execute($updateStmt)) {
             echo "Grades updated successfully!";
         } else {
             echo "Error updating grades: " . mysqli_error($conn);

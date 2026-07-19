@@ -61,8 +61,10 @@ exit();
 function getSelectedCourses($userEmail) {
     global $conn;
 
-    $sql = "SELECT selected_course_1, selected_course_2, selected_course_3 FROM students_courses WHERE email = '$userEmail'";
-    $result = $conn->query($sql);
+    $stmt = $conn->prepare("SELECT selected_course_1, selected_course_2, selected_course_3 FROM students_courses WHERE email = ?");
+    $stmt->bind_param('s', $userEmail);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -75,30 +77,37 @@ function getSelectedCourses($userEmail) {
 function updateSelectedCourse($userEmail, $column, $course) {
     global $conn;
 
-    $sql = "UPDATE students_courses 
-            SET $column = '$course' 
-            WHERE email = '$userEmail'";
+    // Column name cannot be a bound parameter — restrict it to known columns
+    $allowedColumns = ['selected_course_1', 'selected_course_2', 'selected_course_3'];
+    if (!in_array($column, $allowedColumns, true)) {
+        echo "Error: invalid course column.";
+        return;
+    }
 
-    if ($conn->query($sql) === TRUE) {
-        echo "Course '$course' selected successfully.";
+    $stmt = $conn->prepare("UPDATE students_courses SET $column = ? WHERE email = ?");
+    $stmt->bind_param('ss', $course, $userEmail);
+
+    if ($stmt->execute()) {
+        echo "Course '" . htmlspecialchars($course) . "' selected successfully.";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $conn->error;
     }
 }
 
 function updateSelectedCourses($userEmail, $course1, $course2, $course3) {
     global $conn;
 
-    $sql = "UPDATE students_courses 
-            SET selected_course_1 = '$course1', 
-                selected_course_2 = '$course2', 
-                selected_course_3 = '$course3' 
-            WHERE email = '$userEmail'";
+    $stmt = $conn->prepare("UPDATE students_courses
+            SET selected_course_1 = ?,
+                selected_course_2 = ?,
+                selected_course_3 = ?
+            WHERE email = ?");
+    $stmt->bind_param('ssss', $course1, $course2, $course3, $userEmail);
 
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         echo "Courses selected successfully.";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $conn->error;
     }
 }
 ?>

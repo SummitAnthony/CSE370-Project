@@ -3,8 +3,10 @@ include('index1.php');
 include('connection.php');
 
 $sid = $_GET['sid'];
-$sql = "SELECT * FROM `cms` WHERE `id` = '$sid'";
-$run = mysqli_query($conn, $sql);
+$stmt = mysqli_prepare($conn, "SELECT * FROM `cms` WHERE `id` = ?");
+mysqli_stmt_bind_param($stmt, 'i', $sid);
+mysqli_stmt_execute($stmt);
+$run = mysqli_stmt_get_result($stmt);
 $data = mysqli_fetch_assoc($run);
 ?>
 

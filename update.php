@@ -10,8 +10,9 @@ if (isset($_POST['submit'])) {
     $temp = $_FILES['simg']['tmp_name'];
     move_uploaded_file($temp, $imagename);
     
-    $sql = "UPDATE cms SET sc = '$sc', cname = '$cname', image = '$imagename' WHERE id = '$id'";
-    $run = mysqli_query($conn, $sql);
+    $stmt = mysqli_prepare($conn, "UPDATE cms SET sc = ?, cname = ?, image = ? WHERE id = ?");
+    mysqli_stmt_bind_param($stmt, 'sssi', $sc, $cname, $imagename, $id);
+    $run = mysqli_stmt_execute($stmt);
     
     if ($run == true) {
         ?>

@@ -9,12 +9,14 @@ if (!isset($_SESSION['user_id'])) {
 
 $userEmail = $_SESSION['user_email'];
 
-$sql = "SELECT * FROM students_courses 
+$stmt = mysqli_prepare($conn, "SELECT * FROM students_courses
         INNER JOIN quiz ON students_courses.selected_course_1 = quiz.sc OR
                            students_courses.selected_course_2 = quiz.sc OR
                            students_courses.selected_course_3 = quiz.sc
-        WHERE students_courses.email = '$userEmail'";
-$result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+        WHERE students_courses.email = ?");
+mysqli_stmt_bind_param($stmt, 's', $userEmail);
+mysqli_stmt_execute($stmt) or die(mysqli_error($conn));
+$result = mysqli_stmt_get_result($stmt);
 
 if ($userEmail && mysqli_num_rows($result) > 0) {
     ?>
